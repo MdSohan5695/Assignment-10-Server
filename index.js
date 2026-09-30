@@ -1,3 +1,4 @@
+require("dns").setServers(["8.8.8.8"]);
 const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
@@ -11,6 +12,8 @@ app.use(cors());
 app.use(express.json());
 
 // console.log(process.env.USER_DB);
+
+
 
 const uri = `mongodb+srv://${process.env.USER_DB}:${process.env.USER_PASS}@cluster0.pdfyvmk.mongodb.net/?appName=Cluster0`;
 
@@ -26,7 +29,7 @@ const client = new MongoClient(uri, {
 async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
+    // await client.connect(); --- problems for it
 
     const recipesCollection = client.db("assignment-10").collection("recipes");
 
@@ -95,7 +98,8 @@ async function run() {
     });
 
     // Send a ping to confirm a successful connection
-    await client.db("admin").command({ ping: 1 });
+
+    // await client.db("admin").command({ ping: 1 }); ---- problem use for it
     console.log(
       "Pinged your deployment. You successfully connected to MongoDB!"
     );
